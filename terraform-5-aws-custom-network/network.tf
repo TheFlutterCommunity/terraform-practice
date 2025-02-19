@@ -36,9 +36,9 @@ resource "aws_internet_gateway" "prod" {
 # Create Route Table
 resource "aws_route_table" "prod" {
   vpc_id = aws_vpc.prod.id
-  route = {
-    cidr_block = "0.0.0.0/0"
+  route {
     gateway_id = aws_internet_gateway.prod.id
+    cidr_block = "0.0.0.0/0"
   }
   tags = {
     Name = "prod-rtb"
@@ -61,6 +61,14 @@ resource "aws_route_table_association" "prod" {
 resource "aws_security_group" "allow_tls" {
   description = "AWS Security Group"
   vpc_id      = aws_vpc.prod.id
+
+  ingress {
+    description = "TLS from ssh"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   ingress {
     description = "TLS from ssh"

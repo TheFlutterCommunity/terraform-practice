@@ -6,6 +6,8 @@ provider "aws" {
 #  bucket = "dkn-bucket"
 #}
 
+# TODO: Write Script for pending items, check with Veera's Repo from Naresh IT
+
 # Script for Dynamo DB Creation
 resource "aws_dynamodb_table" "dynamodb-terraform-state-lock" {
   name           = "terraform-state-lock-dynamo"
